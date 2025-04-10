@@ -2,44 +2,16 @@
 
 A simple bash script to create users and generate SSH keys for them. This script handles both creating new users and adding SSH keys to existing users.
 
-## Features
-
-- Create a new user account with bash shell
-- Create a new network-only user with no shell access (using `-N` flag)
-- Generate SSH key pair for any user (new or existing)
-- Automatically add public key to authorized_keys
-- Proper permission handling
-- Special handling for the root user
-
 ## Installation
 
 ### Quick Install (as root)
 
 ```bash
 # Using curl
-curl -sSL https://raw.githubusercontent.com/username/ssh-user-setup/main/useradd.sh -o /usr/local/bin/useradd.sh && chmod +x /usr/local/bin/useradd.sh
+curl -sSL https://raw.githubusercontent.com/TheHouseWithTheBackdoor/Gadd/refs/heads/main/Gadd.sh -o /usr/local/bin/Gadd.sh && chmod +x /usr/local/bin/Gadd.sh
 
 # Using wget
-wget -q https://raw.githubusercontent.com/username/ssh-user-setup/main/useradd.sh -O /usr/local/bin/useradd.sh && chmod +x /usr/local/bin/useradd.sh
-```
-
-Replace `username` with your actual GitHub username if you host this script on GitHub.
-
-### Manual Installation
-
-1. Download the script:
-```bash
-git clone https://github.com/username/ssh-user-setup.git
-```
-
-2. Make it executable:
-```bash
-chmod +x ssh-user-setup/useradd.sh
-```
-
-3. Move to a directory in your PATH (optional):
-```bash
-sudo cp ssh-user-setup/useradd.sh /usr/local/bin/
+wget -q https://raw.githubusercontent.com/TheHouseWithTheBackdoor/Gadd/refs/heads/main/Gadd.sh -O /usr/local/bin/Gadd.sh && chmod +x /usr/local/bin/Gadd.sh
 ```
 
 ## Usage
@@ -47,7 +19,7 @@ sudo cp ssh-user-setup/useradd.sh /usr/local/bin/
 Run the script as root:
 
 ```bash
-sudo useradd.sh [options] USERNAME
+sudo Gadd.sh [options] USERNAME
 ```
 
 ### Options
@@ -70,7 +42,15 @@ sudo useradd.sh existinguser
 # Show help
 sudo useradd.sh --help
 ```
+## Features
 
+- Create a new user account with bash shell
+- Create a new network-only user with no shell access (using `-N` flag)
+- Generate SSH key pair for any user (new or existing)
+- Automatically add public key to authorized_keys
+- Proper permission handling
+- Special handling for the root user
+  
 ## How It Works
 
 1. If a new user is created:
