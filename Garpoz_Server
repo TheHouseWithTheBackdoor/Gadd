@@ -1,0 +1,52 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          ssh-reverse-tunnel
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: SSH reverse tunnel service
+# Description:       Maintains a persistent SSH reverse tunnel connection
+### END INIT INFO
+
+DAEMON="/usr/bin/autossh"
+DAEMON_OPTS="-M 0 -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes -R 3060:127.0.0.1:22 Cranko_VPN"
+DAEMON_NAME="ssh-reverse-tunnel"
+PIDFILE="/var/run/$DAEMON_NAME.pid"
+
+export AUTOSSH_GATETIME=0
+export AUTOSSH_PORT=0
+
+start() {
+    printf "Starting $DAEMON_NAME: "
+    start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE \
+        --background \
+        --exec $DAEMON -- $DAEMON_OPTS
+    printf "done\n"
+}
+
+stop() {
+    printf "Stopping $DAEMON_NAME: "
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    rm -f $PIDFILE
+    printf "done\n"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $DAEMON_NAME {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
